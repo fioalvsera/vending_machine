@@ -22,8 +22,6 @@ const runCoinSystem = async function(credit)  {
     return credit
 }
 
-
-
 module.exports = {
     runCoinSystem
 }
