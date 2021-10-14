@@ -36,6 +36,5 @@ const main = async () => {
     } while (continueUsingVendingMachine)
 
     process.exit(0)
-
 }
 main()
