@@ -1,5 +1,6 @@
+
 const coinSystem = require("./coin_system.js")
-const welcome = require("./welcome.js")
+
 
 const readline = require('readline').createInterface({
     input: process.stdin,
@@ -14,25 +15,30 @@ async function readLineAsync(message) {
     });
 }
 
-const main = async function() {
+const main = async () => {
+
     let credit = 0
+    console.log("This is a Vending Machine")
+    console.log(`Your credit is ${credit}`)
+    console.log("Type '1' if you wish to add credit")
+    console.log("Type '2' if you wish to see the products")
+    let usersResponse = await readLineAsync("What do you wish to do?")
 
-    let userResponse = await welcome.printWelcome(credit)
+    switch(usersResponse){
 
-    switch(userResponse) {
         case "1":
             credit = await coinSystem.runCoinSystem(credit)
             console.log(`Your new credit is ${credit}`)
-        break;
-
+            break;
         case "2":
-            console.log("This are your products")
-        break;
+            console.log("This are our Products")
+            break;
 
         default:
             console.log("error")
     }
 
     process.exit(0)
+
 }
 main()
