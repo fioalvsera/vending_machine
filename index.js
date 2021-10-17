@@ -1,7 +1,5 @@
-
 const coinSystem = require("./coin_system.js")
 const util = require("./util.js")
-
 
 const main = async () => {
 
@@ -36,5 +34,6 @@ const main = async () => {
     } while (continueUsingVendingMachine)
 
     process.exit(0)
+
 }
 main()
