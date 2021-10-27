@@ -1,6 +1,6 @@
 const coinSystem = require("./coin_system.js")
 const util = require("./util.js")
-const products = require("./products.js")
+const products = require("./products_system.js")
 
 const main = async () => {
 
@@ -23,6 +23,7 @@ const main = async () => {
                 console.log(`Your new credit is ${credit}`)
                 break;
             case "2":
+                console.log("\n-----\n")
                 credit = await products.buyProducts(credit, products.products)
                 console.log(`This is your actual ${credit}`)
                 break;
