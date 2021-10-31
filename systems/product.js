@@ -1,4 +1,3 @@
-
 const util = require("../util.js")
 
 let products = {
@@ -49,7 +48,6 @@ const buyProducts = async(credit, products) => {
     console.table(products)
     let productWanted = await util.readLineAsync(" If you wish to exit, type 'exit'\n What do you wish to buy?")
     credit = deliverProduct(credit, products, productWanted)
-    console.log("\n-----\n")
     return credit
 }
 

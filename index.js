@@ -15,27 +15,29 @@ const main = async () => {
         console.log("Type '2' if you wish to see the products")
         console.log("Type '3' if you wish to exit")
         let usersResponse = await util.readLineAsync("What do you wish to do?")
-
+        let systemResponse = ""
+        console.log("\n-----\n")
         switch(usersResponse){
 
             case "1":
                 credit = credit + await coinSystem.runCoinSystem(credit)
-                console.log(`Your new credit is ${credit}`)
+                systemResponse = `Your new credit is ${credit}`
                 break;
             case "2":
-                console.log("\n-----\n")
                 credit = await products.buyProducts(credit, products.products)
-                console.log(`This is your actual ${credit}`)
+                systemResponse = `This is your current ${credit} credit`
                 break;
 
             case "3":
                 continueUsingVendingMachine = false
-                break;
+                process.exit(0)
 
             default:
-                console.log("error")
+                systemResponse = "Option is not allowed"
         }
-        await util.readLineAsync("continue")
+        console.log("\n-----\n")
+        console.log(systemResponse)
+        await util.readLineAsync("Continue")
         console.log("\n")
     } while (continueUsingVendingMachine)
 
