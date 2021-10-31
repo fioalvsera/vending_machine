@@ -20,14 +20,20 @@ let products = {
 }
 
 const deliverProduct = (credit, products, productId) => {
+    if(products[productId] == undefined){
+        console.log("\nWe don't have that product\n")
+        return credit
+
+    }
+
     if(products[productId].quantity <= 0){
         console.log("\nThere's no more of that product\n")
-        return [credit, products]
+        return credit
     }
 
     if(products[productId].price > credit){
         console.log("\nYou don't have enough credit\n")
-        return [credit, products]
+        return credit
     }
 
     console.log(`Here is your ${products[productId].name}`)
@@ -38,30 +44,11 @@ const deliverProduct = (credit, products, productId) => {
 }
 
 const buyProducts = async(credit, products) => {
-
-    let continueBuying = true
-
     console.log(`Your credit is ${credit}`)
     console.log("This are the products:")
     console.table(products)
     let productWanted = await util.readLineAsync(" If you wish to exit, type 'exit'\n What do you wish to buy?")
-    switch(productWanted){
-        case "01":
-            credit = deliverProduct(credit, products, "01")
-            break;
-
-        case "02":
-            credit = deliverProduct(credit, products, "02")
-            break;
-
-        case "03":
-            credit = deliverProduct(credit, products, "03")
-            break;
-
-        case "exit":
-            continueBuying = false
-            break;
-    }
+    credit = deliverProduct(credit, products, productWanted)
     console.log("\n-----\n")
     return credit
 }
