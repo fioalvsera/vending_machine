@@ -40,37 +40,29 @@ const deliverProduct = (credit, products, productId) => {
 const buyProducts = async(credit, products) => {
 
     let continueBuying = true
-    do {
-        console.log(`Your credit is ${credit}`)
-        console.log("This are the products:")
-        console.table(products)
-        let productWanted = await util.readLineAsync(" If you wish to exit, type 'exit'\n What do you wish to buy?")
-        switch(productWanted){
-            case "01":
-                credit = deliverProduct(credit, products, "01")
-                break;
 
-            case "02":
-                credit = deliverProduct(credit, products, "02")
-                break;
+    console.log(`Your credit is ${credit}`)
+    console.log("This are the products:")
+    console.table(products)
+    let productWanted = await util.readLineAsync(" If you wish to exit, type 'exit'\n What do you wish to buy?")
+    switch(productWanted){
+        case "01":
+            credit = deliverProduct(credit, products, "01")
+            break;
 
-            case "03":
-                credit = deliverProduct(credit, products, "03")
-                break;
+        case "02":
+            credit = deliverProduct(credit, products, "02")
+            break;
 
-            case "exit":
-                continueBuying = false
-                break;
-        }
+        case "03":
+            credit = deliverProduct(credit, products, "03")
+            break;
 
-        let continueQuestion = await util.readLineAsync("If you want to exit, type '3'")
-        if(continueQuestion == "3"){
+        case "exit":
             continueBuying = false
-        }
-
-        console.log("\n-----\n")
-    } while(continueBuying)
-
+            break;
+    }
+    console.log("\n-----\n")
     return credit
 }
 
