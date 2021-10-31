@@ -1,5 +1,5 @@
 
-const util = require("./util.js")
+const util = require("../util.js")
 
 let products = {
     "01": {
@@ -64,7 +64,7 @@ const buyProducts = async(credit, products) => {
         }
 
         let continueQuestion = await util.readLineAsync("If you want to exit, type '3'")
-        if(continueQuestion == "exit"){
+        if(continueQuestion == "3"){
             continueBuying = false
         }
 

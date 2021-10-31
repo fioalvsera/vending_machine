@@ -1,6 +1,6 @@
-const coinSystem = require("./coin_system.js")
+const coinSystem = require("./systems/coin.js")
 const util = require("./util.js")
-const products = require("./products_system.js")
+const products = require("./systems/product.js")
 
 const main = async () => {
 
