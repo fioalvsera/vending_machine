@@ -1,4 +1,4 @@
-const coinSystem = require("./systems/coin.js")
+const insertCoins = require("./systems/coin.js")
 const util = require("./util.js")
 const products = require("./systems/product.js")
 
@@ -20,7 +20,7 @@ const main = async () => {
         switch(usersResponse){
 
             case "1":
-                credit = credit + await coinSystem.runCoinSystem(credit)
+                credit = credit + await insertCoins.insertCoins(credit)
                 systemResponse = `Your new credit is ${credit}`
                 break;
             case "2":

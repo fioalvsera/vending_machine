@@ -1,6 +1,6 @@
 const util = require("../util.js")
 
-const runCoinSystem = async function(credit)  {
+const insertCoins = async function(credit)  {
 
     let coin1 = await util.readLineAsync("How many coins of 1 do you want to enter?")
     let coin2 = await util.readLineAsync("How many coins of 2 do you want to enter?")
@@ -11,5 +11,5 @@ const runCoinSystem = async function(credit)  {
 }
 
 module.exports = {
-    runCoinSystem
+        insertCoins
 }
