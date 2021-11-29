@@ -24,6 +24,8 @@ const insertCoins = async function(credit)  {
 }
 
 const writeCoinInfo = async (newCoinInfo) => {
+
+    if(!fs.existsSync(FILE_ADDRESS)) initCoinInfo()
     const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
     let parsedData = parse(data, {columns: true})
 
@@ -57,8 +59,16 @@ const writeCoinInfo = async (newCoinInfo) => {
     }
 
     write(parsedData, FILE_ADDRESS)
+}
 
-    }
+const initCoinInfo = () =>{
+    let defaultCoinInfo = [{Coins1: 0, Coins2: 0, Coins5: 0, Coins10: 0}]
+    const data = stringify(defaultCoinInfo, {
+        header: true,
+        columns: ["Coins1","Coins2","Coins5","Coins10"]
+    })
+    fs.writeFileSync(FILE_ADDRESS, data)
+}
 
 module.exports = {
         insertCoins: insertCoins,
