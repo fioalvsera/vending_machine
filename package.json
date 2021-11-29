@@ -1,0 +1,23 @@
+{
+  "name": "vending_machine",
+  "version": "1.0.0",
+  "description": "Systems scripts to perform functions as in a Vending Machine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fioalvsera/geometry.git"
+  },
+  "author": "fioalvsera@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fioalvsera/geometry/issues"
+  },
+  "homepage": "https://github.com/fioalvsera/geometry#readme",
+  "dependencies": {
+    "csv": "^5.5.0",
+    "uuid": "^8.3.2"
+  }
+}
