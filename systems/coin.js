@@ -25,9 +25,7 @@ const insertCoins = async function(credit)  {
 
 const writeCoinInfo = async (newCoinInfo) => {
 
-    if(!fs.existsSync(FILE_ADDRESS)) initCoinInfo()
-    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
-    let parsedData = parse(data, {columns: true})
+    let parsedData = readCoinsInfo()
 
     const addNewCoinInfo = (parsedData, newCoinInfo) => {
 
@@ -49,6 +47,7 @@ const writeCoinInfo = async (newCoinInfo) => {
     }
 
     parsedData = addNewCoinInfo(parsedData, newCoinInfo)
+    console.log("Current coins on system:")
     console.log(parsedData)
 
     const write = (newCoinInfo, FILE_ADDRESS) => {
@@ -71,50 +70,55 @@ const initCoinInfo = () =>{
     fs.writeFileSync(FILE_ADDRESS, data)
 }
 
-const runRefundSystem = (credit) => {
-
-    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
-    let parsedData = parse(data, {columns: true})
+const refundCoins = (credit) => {
+    let parsedData = readCoinsInfo()
     let refund = {
         "Coins1": 0,
         "Coins2": 0,
         "Coins5": 0,
         "Coins10": 0
+    }
+    console.log("The refund is:")
+    console.log(refund)
+    const COIN_TYPES = ["coins1", "coins2", "coins5", "coins10"]
+    for(let i = 0; i < COIN_TYPES.length; i++){
+        let amountToRefund = 0
+        let coinNumber = []
+        switch(i) {
+            case 0: coinNumber = ["Coins10",10]
+            break;
+            case 1: coinNumber = ["Coins5",5]
+            break;
+            case 2: coinNumber = ["Coins2",2]
+            break;
+            case 3: coinNumber = ["Coins1",1]
+            break;
+        }
+        amountToRefund = Math.floor(credit / coinNumber[1])
+        if(amountToRefund > parsedData[0][coinNumber[0]]){
+            credit = credit - parseInt((parsedData[0][coinNumber[0]] * coinNumber[1]))
+            refund[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
+        } else {
+            credit = credit - (amountToRefund * coinNumber[1])
+            refund[coinNumber[0]] = amountToRefund
         }
 
-    const refundCoins = (parsedData, credit, refund) => {
-        for(let i = 0; i < 4; i++){
-            let amountToRefund = 0
-            let coinNumber = 0
-            switch(i) {
-                case 0: coinNumber = ["Coins10",10]
-                break;
-                case 1: coinNumber = ["Coins5",5]
-                break;
-                case 2: coinNumber = ["Coins2",2]
-                break;
-                case 3: coinNumber = ["Coins1",1]
-                break;
-            }
-            amountToRefund = Math.floor(credit / coinNumber[1])
-            if(amountToRefund > parsedData[0][coinNumber[0]]){
-                credit = credit - parseInt((parsedData[0][coinNumber[0]] * coinNumber[1]))
-                refund[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
-            } else {
-                credit = credit - (amountToRefund * coinNumber[1])
-                refund[coinNumber[0]] = amountToRefund
-            }
-
-        }return [refund, credit]
     }
 
-    return refundCoins(parsedData, credit, refund)
+    return [refund, credit]
+}
 
+const readCoinsInfo = () => {
+
+    if(!fs.existsSync(FILE_ADDRESS)) initCoinInfo()
+    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
+    let parsedData = parse(data, {columns: true})
+
+    return parsedData
 }
 
 const numToNegative = (newCoinInfo) => {
-    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
-    let parsedData = parse(data, {columns: true})
+    let parsedData = readCoinsInfo()
     for(let i = 0; i < 4; i++){
         let coinNumber = 0
         switch(i) {
@@ -137,6 +141,6 @@ const numToNegative = (newCoinInfo) => {
 module.exports = {
         insertCoins: insertCoins,
         writeCoinInfo: writeCoinInfo,
-        runRefundSystem: runRefundSystem,
+        refundCoins: refundCoins,
         numToNegative: numToNegative
 }

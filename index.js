@@ -34,7 +34,7 @@ const main = async () => {
                 break;
 
             case "3":
-                let [refund, newCreditInfo] = await coins.runRefundSystem(credit)
+                let [refund, newCreditInfo] = await coins.refundCoins(credit)
                 console.log("Your refund is:")
                 console.table(refund)
                 credit = newCreditInfo
