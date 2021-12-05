@@ -49,6 +49,7 @@ const writeCoinInfo = async (newCoinInfo) => {
     }
 
     parsedData = addNewCoinInfo(parsedData, newCoinInfo)
+    console.log(parsedData)
 
     const write = (newCoinInfo, FILE_ADDRESS) => {
         const data = stringify(newCoinInfo, {
@@ -70,7 +71,72 @@ const initCoinInfo = () =>{
     fs.writeFileSync(FILE_ADDRESS, data)
 }
 
+const runRefundSystem = (credit) => {
+
+    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
+    let parsedData = parse(data, {columns: true})
+    let refund = {
+        "Coins1": 0,
+        "Coins2": 0,
+        "Coins5": 0,
+        "Coins10": 0
+        }
+
+    const refundCoins = (parsedData, credit, refund) => {
+        for(let i = 0; i < 4; i++){
+            let amountToRefund = 0
+            let coinNumber = 0
+            switch(i) {
+                case 0: coinNumber = ["Coins10",10]
+                break;
+                case 1: coinNumber = ["Coins5",5]
+                break;
+                case 2: coinNumber = ["Coins2",2]
+                break;
+                case 3: coinNumber = ["Coins1",1]
+                break;
+            }
+            amountToRefund = Math.floor(credit / coinNumber[1])
+            if(amountToRefund > parsedData[0][coinNumber[0]]){
+                credit = credit - parseInt((parsedData[0][coinNumber[0]] * coinNumber[1]))
+                refund[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
+            } else {
+                credit = credit - (amountToRefund * coinNumber[1])
+                refund[coinNumber[0]] = amountToRefund
+            }
+
+        }return [refund, credit]
+    }
+
+    return refundCoins(parsedData, credit, refund)
+
+}
+
+const numToNegative = (newCoinInfo) => {
+    const data = fs.readFileSync(FILE_ADDRESS, 'utf8')
+    let parsedData = parse(data, {columns: true})
+    for(let i = 0; i < 4; i++){
+        let coinNumber = 0
+        switch(i) {
+            case 0: coinNumber = "Coins1"
+            break;
+            case 1: coinNumber = "Coins2"
+            break;
+            case 2: coinNumber = "Coins5"
+            break;
+            case 3: coinNumber = "Coins10"
+            break;
+        }
+        parsedData[0][coinNumber] = -Math.abs(newCoinInfo[coinNumber])
+    }
+    return parsedData
+}
+
+
+
 module.exports = {
         insertCoins: insertCoins,
-        writeCoinInfo: writeCoinInfo
+        writeCoinInfo: writeCoinInfo,
+        runRefundSystem: runRefundSystem,
+        numToNegative: numToNegative
 }
