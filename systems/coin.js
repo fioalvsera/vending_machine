@@ -84,7 +84,7 @@ const initCoinInfo = () =>{
 
 const refundCoins = (credit) => {
     let parsedData = readCoinsInfo()
-    let refund = {
+    let refundData = {
         "Coins1": 0,
         "Coins2": 0,
         "Coins5": 0,
@@ -107,15 +107,15 @@ const refundCoins = (credit) => {
         amountToRefund = Math.floor(credit / coinNumber[1])
         if(amountToRefund > parsedData[0][coinNumber[0]]){
             credit = credit - parseInt((parsedData[0][coinNumber[0]] * coinNumber[1]))
-            refund[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
+            refundData[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
         } else {
             credit = credit - (amountToRefund * coinNumber[1])
-            refund[coinNumber[0]] = amountToRefund
+            refundData[coinNumber[0]] = amountToRefund
         }
 
     }
 
-    return [refund, credit]
+    return [refundData, credit]
 }
 
 const readCoinsInfo = () => {

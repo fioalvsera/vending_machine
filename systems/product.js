@@ -1,4 +1,5 @@
 const util = require("../util.js")
+const coins = require("./coin.js")
 
 let products = {
     "01": {
@@ -35,6 +36,16 @@ const deliverProduct = (credit, products, productId) => {
         return credit
     }
 
+    let amountToRefund = credit - products[productId].price
+    let coinsDataOnlyZeros = { Coins1: 0, Coins2: 0, Coins5: 0, Coins10: 0 }
+    if(
+        JSON.stringify(coins.refundCoins(amountToRefund)[0]) === JSON.stringify(coinsDataOnlyZeros)
+        && amountToRefund !== 0
+    ){
+        console.log("\You can't make this purchase, or else, we won't be able to give you a refund")
+        return credit
+    }
+    console.log(coins.refundCoins((credit - products[productId].price))[0])
     console.log(`Here is your ${products[productId].name}`)
     products[productId].quantity = products[productId].quantity - 1
     credit = credit - products[productId].price
