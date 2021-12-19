@@ -91,7 +91,7 @@ const refundCoins = (credit) => {
     }
     const COIN_TYPES = ["coins1", "coins2", "coins5", "coins10"]
     for(let i = 0; i < COIN_TYPES.length; i++){
-        let amountToRefund = 0
+        let amountOfCoinsToRefund = 0
         let coinNumber = []
         switch(i) {
             case 0: coinNumber = ["Coins10",10]
@@ -103,13 +103,13 @@ const refundCoins = (credit) => {
             case 3: coinNumber = ["Coins1",1]
             break;
         }
-        amountToRefund = Math.floor(credit / coinNumber[1])
-        if(amountToRefund > parsedData[0][coinNumber[0]]){
+        amountOfCoinsToRefund = Math.floor(credit / coinNumber[1])
+        if(amountOfCoinsToRefund >= parsedData[0][coinNumber[0]]){
             credit = credit - parseInt((parsedData[0][coinNumber[0]] * coinNumber[1]))
             refundData[coinNumber[0]] = parseInt(parsedData[0][coinNumber[0]])
         } else {
-            credit = credit - (amountToRefund * coinNumber[1])
-            refundData[coinNumber[0]] = amountToRefund
+            credit = credit - (amountOfCoinsToRefund * coinNumber[1])
+            refundData[coinNumber[0]] = amountOfCoinsToRefund
         }
 
     }
