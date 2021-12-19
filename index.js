@@ -2,7 +2,6 @@
 const coins = require("./systems/coin.js")
 const util = require("./util.js")
 const products = require("./systems/product.js")
-const { numToNegative } = require("./systems/coin.js")
 
 const main = async () => {
 
@@ -38,7 +37,7 @@ const main = async () => {
                 console.log("Your refund is:")
                 console.table(refund)
                 credit = newCreditInfo
-                let negCoinInfo = numToNegative(refund)
+                let negCoinInfo = coins.numToNegative(refund)
                 coins.writeCoinInfo(negCoinInfo[0])
                 break;
 
