@@ -28,12 +28,11 @@ const insertCoins = async function(credit)  {
 }
 
 const changeUndefinedToCero = (num) => {
-    if(num == ''){
-        num = 0
-        return num
-    }
-    return num
+    let ret = parseInt(num)
+    if(num == '' || Number.isNaN(ret)) ret = 0
+    return ret
 }
+
 
 const writeCoinInfo = async (newCoinInfo) => {
 
