@@ -1,6 +1,5 @@
 const util = require("../util.js")
 const fs = require('fs')
-const csv = require('csv')
 const parse = require('csv-parse/lib/sync')
 const stringify = require("csv-stringify/lib/sync")
 const { FILE } = require("dns")

@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/fioalvsera/geometry#readme",
   "dependencies": {
-    "csv": "^5.5.0",
+    "csv": "^5.5.3",
     "uuid": "^8.3.2"
   }
 }
